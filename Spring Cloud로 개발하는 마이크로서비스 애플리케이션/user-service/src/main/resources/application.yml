@@ -1,0 +1,51 @@
+server:
+  port: 0  # 랜덤 포트 사용
+
+spring:
+  application:
+    name: user-service  # 각 마이크로서비스의 고유한 ID 부여
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+      path: /h2-console
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:testdb
+
+
+# eureka 설정
+eureka:
+  instance:
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+  client:
+    # Eureka 서버로부터 인스턴스들의 정보를 주기적으로 가져올 것인지를 설정하는 속성
+    # true이면 갱신된 정보를 받겠다는 설정
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka  # Eureka 서버의 위치 폴더 설정
+
+greeting:
+  message: Welcome to the Simple E-commerce.
+
+logging:
+  level:
+    com.example.userservice.client: DEBUG
+
+#token:
+#  expiration_time: 86400000  # 토큰 지속 시간(하루 : 24 * 60 * 60 1000)
+#  secret: user_token  # 임의의 값
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, busrefresh
+        # refresh는 config server에서 가져올 내용을 refresh 한다.

@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      uri: http://127.0.0.1:8888
+      name: user-service  # repository 파일명, 어플리케이션 이름
+#  profiles:
+#    active: dev

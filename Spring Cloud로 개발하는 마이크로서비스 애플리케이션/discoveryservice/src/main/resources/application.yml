@@ -1,0 +1,16 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: dicoveryservice  # 각 마이크로서비스의 고유한 ID 부여
+  cloud:
+    config:
+      uri: http://127.0.0.1:8888
+      name: ecommerce
+
+# eureka 설정
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false  # true이면 eureka에 등록됨(자기 자신에게 등록하는 꼴)
