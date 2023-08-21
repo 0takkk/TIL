@@ -148,3 +148,34 @@
 프록시를 사용해서 기존 코드를 수정하지 않고 부가 기능을 적용할 수 있다.  
 하지만, 프록시 클래스를 너무 많이 만들어야 한다.  
 이런 경우 `동적 프록시` 기술을 사용할 수 있다.
+
+## 동적 프록시 기술
+
+### 리플렉션
+
+자바가 기본으로 제공하는 JDK 동적 프록시 기술이나 CGLIB 같은 프록시 생성 오픈소스를 사용하면 프록시 객체를 동적으로 만들어낼 수 있다.  
+JDK 동적 프록시를 이해하기 위해서는 먼저 자바 리플렉션 기술을 이해해야 한다.  
+<br>
+
+호출하는 메서드 `target.callA()`, `target.callB()` 이 부분만 동적으로 처리하도록 하는 기술이 `리플렉션`이다.
+
+```
+// 클래스 정보 획득
+Class classHello = Class.forName("hello.proxy.jdkdynamic.ReflectionTest$Hello");
+
+Hello target = new Hello();
+// callA 메서드 정보 획득
+Method methodCallA = classHello.getMethod("callA");
+Object result1 = methodCallA.invoke(target);
+log.info("result1 = {}", result1);
+```
+
+`getMethod`의 String 값을 동적으로 변경할 수 있다.
+
+```
+private void dynamicCall(Method method, Object target) throws Exception{
+    log.info("start");
+    Object result = method.invoke(target);
+    log.info("result = {}", result);
+}
+```
