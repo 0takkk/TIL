@@ -186,3 +186,10 @@ private void dynamicCall(Method method, Object target) throws Exception{
 
 `JDK 동적 프록시`는 `InvocationHandler` 인터페이스를 구현해서 작성해야 한다.  
 또한, 인터페이스가 필수이다.
+
+### CGLIB
+
+바이트 코드를 조작해서 동적으로 클래스를 생성하는 기술.  
+인터페이스 없이 구체 클래스만 가지고 동적 프록시 기술을 사용할 수 있다.  
+`MethodInterceptor` 인터페이스 구현해야한다.  
+
