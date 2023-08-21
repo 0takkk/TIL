@@ -179,3 +179,10 @@ private void dynamicCall(Method method, Object target) throws Exception{
     log.info("result = {}", result);
 }
 ```
+
+하지만, `리플렉션` 기술은 런타임에 동작하기 때문에, 컴파일 시점에 오류를 잡을 수 없다.
+
+### JDK 동적 프록시
+
+`JDK 동적 프록시`는 `InvocationHandler` 인터페이스를 구현해서 작성해야 한다.  
+또한, 인터페이스가 필수이다.
