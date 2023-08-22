@@ -191,5 +191,14 @@ private void dynamicCall(Method method, Object target) throws Exception{
 
 바이트 코드를 조작해서 동적으로 클래스를 생성하는 기술.  
 인터페이스 없이 구체 클래스만 가지고 동적 프록시 기술을 사용할 수 있다.  
-`MethodInterceptor` 인터페이스 구현해야한다.  
+`MethodInterceptor` 인터페이스 구현해야 한다.
 
+## 스프링이 지원하는 프록시
+
+### 프록시 팩토리
+
+스프링은 동적 프록시를 통합해서 편리하게 만들어주는 `프록시 팩토리` 기능을 제공한다.  
+`프록시 팩토리`는 인터페이스가 있으면 JDK 동적 프록시, 구체 클래스만 있으면 CGLIB를 사용한다.  
+`InvocationHandler`나 `MethodInterceptor`를 신경쓰지 않고, `Advice`만 만들면 된다.
+
+<img width="804" alt="image" src="https://github.com/0takkk/inflearn/assets/89503136/d97e369a-d206-4cb3-889e-4531de36c472">
