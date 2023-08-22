@@ -202,3 +202,9 @@ private void dynamicCall(Method method, Object target) throws Exception{
 `InvocationHandler`나 `MethodInterceptor`를 신경쓰지 않고, `Advice`만 만들면 된다.
 
 <img width="804" alt="image" src="https://github.com/0takkk/inflearn/assets/89503136/d97e369a-d206-4cb3-889e-4531de36c472">
+
+### 포인트컷, 어드바이스, 어드바이저
+
+`포인트컷(Pointcut)` : 어디에 부가 기능을 적용할지 필터링 로직. 주로 클래스와 메서드 이름으로 필터링.  
+`어드바이스(Advice)` : 이전에 본 것 처럼 프록시가 호출하는 부가 기능. 프록시 로직  
+`어드바이저(Advisor)` : 하나의 포인트컷과 하나의 어드바이스를 가지고 있는 것.
