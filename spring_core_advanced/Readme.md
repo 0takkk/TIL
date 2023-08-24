@@ -149,6 +149,8 @@
 하지만, 프록시 클래스를 너무 많이 만들어야 한다.  
 이런 경우 `동적 프록시` 기술을 사용할 수 있다.
 
+<br>
+
 ## 동적 프록시 기술
 
 ### 리플렉션
@@ -193,6 +195,8 @@ private void dynamicCall(Method method, Object target) throws Exception{
 인터페이스 없이 구체 클래스만 가지고 동적 프록시 기술을 사용할 수 있다.  
 `MethodInterceptor` 인터페이스 구현해야 한다.
 
+<br>
+
 ## 스프링이 지원하는 프록시
 
 ### 프록시 팩토리
@@ -208,3 +212,26 @@ private void dynamicCall(Method method, Object target) throws Exception{
 `포인트컷(Pointcut)` : 어디에 부가 기능을 적용할지 필터링 로직. 주로 클래스와 메서드 이름으로 필터링.  
 `어드바이스(Advice)` : 이전에 본 것 처럼 프록시가 호출하는 부가 기능. 프록시 로직  
 `어드바이저(Advisor)` : 하나의 포인트컷과 하나의 어드바이스를 가지고 있는 것.
+
+<br>
+
+## 빈 후처리기  
+
+스프링에서 빈 저장소에 등록할 객체를 조작하고 싶다면 `빈 후처리기`를 사용하면 된다.  
+
+> `빈 후처리기` 과정
+> 1. **생성** : 스프링 빈 대상이 되는 객체를 생성
+> 2. **전달** : 생성된 객체를 빈 저장소에 등록하기 직전에 빈 후처리기에 전달
+> 3. **후 처리 작업** : 빈 후처리기는 전달된 스프링 빈 객체를 조작하거나 다른 객체로 변경
+> 4. **등록** : 빈 후처리기는 빈을 반환  
+
+<img width="821" alt="image" src="https://github.com/0takkk/inflearn/assets/89503136/1f9eae66-9f75-4d17-ae7f-ff104f189372">
+
+`빈 후처리기`를 사용해서 실제 객체 대신 `프록시 객체`를 스프링 빈으로 등록할 수 있다.  
+스프링 부트는 `AnnotationAwareAspectJAutoProxyCreator`라는 `빈 후처리기`가 자동으로 등록된다.  
+따라서, `Advisor`만 빈으로 등록하면 자동으로 프록시 객체를 만들어준다.  
+  
+<img width="814" alt="image" src="https://github.com/0takkk/inflearn/assets/89503136/b709d129-5fb2-4a44-8247-620a02e9e2e6">
+
+
+
