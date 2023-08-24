@@ -215,23 +215,50 @@ private void dynamicCall(Method method, Object target) throws Exception{
 
 <br>
 
-## 빈 후처리기  
+## 빈 후처리기
 
-스프링에서 빈 저장소에 등록할 객체를 조작하고 싶다면 `빈 후처리기`를 사용하면 된다.  
+스프링에서 빈 저장소에 등록할 객체를 조작하고 싶다면 `빈 후처리기`를 사용하면 된다.
 
 > `빈 후처리기` 과정
+>
 > 1. **생성** : 스프링 빈 대상이 되는 객체를 생성
 > 2. **전달** : 생성된 객체를 빈 저장소에 등록하기 직전에 빈 후처리기에 전달
 > 3. **후 처리 작업** : 빈 후처리기는 전달된 스프링 빈 객체를 조작하거나 다른 객체로 변경
-> 4. **등록** : 빈 후처리기는 빈을 반환  
+> 4. **등록** : 빈 후처리기는 빈을 반환
 
 <img width="821" alt="image" src="https://github.com/0takkk/inflearn/assets/89503136/1f9eae66-9f75-4d17-ae7f-ff104f189372">
 
 `빈 후처리기`를 사용해서 실제 객체 대신 `프록시 객체`를 스프링 빈으로 등록할 수 있다.  
 스프링 부트는 `AnnotationAwareAspectJAutoProxyCreator`라는 `빈 후처리기`가 자동으로 등록된다.  
-따라서, `Advisor`만 빈으로 등록하면 자동으로 프록시 객체를 만들어준다.  
-  
+따라서, `Advisor`만 빈으로 등록하면 자동으로 프록시 객체를 만들어준다.
+
 <img width="814" alt="image" src="https://github.com/0takkk/inflearn/assets/89503136/b709d129-5fb2-4a44-8247-620a02e9e2e6">
 
+<br>
 
+## @Aspect AOP
 
+스프링은 `@Aspect` 어노테이션으로 포인트컷과 어드바이스로 구성된 어드바이저를 생성할 수 있다.
+
+```
+@Around("execution(* hello.proxy.app..*(..))")
+public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
+    TraceStatus status = null;
+    try {
+        String message = joinPoint.getSignature().toShortString();
+        status = trace.begin(message);
+
+        Object result = joinPoint.proceed();
+
+        trace.end(status);
+        return result;
+    } catch (Exception e) {
+        trace.exception(status, e);
+        throw e;
+    }
+}
+```
+
+`@Around`가 포인트컷, 메서드 안의 내용이 어드바이스이다.
+
+<br>
