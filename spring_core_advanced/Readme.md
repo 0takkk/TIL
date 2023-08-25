@@ -302,3 +302,13 @@ public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
   - 스프링 AOP에서만 사용되는 용어
 - `위빙(Weaving)`
   - `포인트컷`으로 결정한 타켓의 `조인 포인트`에 `어드바이스`를 적용하는 것
+
+<br>
+
+## 스프링 AOP 구현
+
+어드바이스 순서를 정할 때는 `@Order`를 사용한다.  
+`@Order`는 클래스 단위로 설정할 수 있다.  
+하나의 `Aspect`에 여러 개의 `어드바이스`가 있으면 순서를 정할 수 없다.
+
+<br>
