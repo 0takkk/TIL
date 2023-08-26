@@ -312,3 +312,14 @@ public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
 하나의 `Aspect`에 여러 개의 `어드바이스`가 있으면 순서를 정할 수 없다.
 
 <br>
+
+## 스프링 AOP - 포인트컷
+
+`execution`문법
+
+```
+execution(접근제어자? 반환타입 선언타입?메서드이름(파라미터) 예외?)
+```
+
+?는 생략 가능.  
+`*`와 같은 패턴을 지정할 수 있음.
