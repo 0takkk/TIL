@@ -7,7 +7,7 @@
 
 <img width="598" alt="image" src="https://github.com/0takkk/inflearn/assets/89503136/bc924d8b-0764-47bd-9fb8-da09f0b9489d">
 
-**예외 변환 후**
+**예외 변환 후**  
 <img width="590" alt="image" src="https://github.com/0takkk/inflearn/assets/89503136/059decbd-b2ce-4ecc-92cd-4f5bfd96ca62">
 
 <br>
