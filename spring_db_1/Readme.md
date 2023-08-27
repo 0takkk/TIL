@@ -14,3 +14,47 @@
 <br>
 
 ## 자바 예외
+
+<img width="596" alt="image" src="https://github.com/0takkk/inflearn/assets/89503136/927334a1-efb4-4743-a827-3bffebf6c206">
+
+예외는 잡아서 처리하거나, 처리할 수 없으면 밖으로 던져야한다.
+
+<img width="594" alt="image" src="https://github.com/0takkk/inflearn/assets/89503136/8b25127e-90b4-4cf3-81f8-597f95870610">
+<img width="597" alt="image" src="https://github.com/0takkk/inflearn/assets/89503136/49d375c2-41e9-4f11-a59b-7357c265a4e9">
+
+자바 main() 스레드는 예외를 처리하지 않으면 예외 로그를 출력하고 시스템이 종료된다.  
+웹 어플리케이션은 여러 사용자의 요청을 처리하기 때문에 하나의 예외 때문에 시스템이 종료될 수 있다.
+
+<br>
+
+### CheckedException
+
+`CheckedException`은 예외를 잡어서 처리하거나, `throws`로 예외를 밖으로 던지는 것을 필수로 해야한다.  
+그렇지 않으면 **컴파일 오류**가 발생한다.
+
+- **장점** : 개발자가 실수로 예외를 누락하지 않도록 컴파일러를 통해 문제를 잡아주는 안정장치가 된다.
+- **단점** : 개발자가 모든 체크 예외를 반드시 잡거나 던지도록 처리해야한다. 추가로 의존 관계에 따른 단점도 존재한다.
+
+### UncheckedException
+
+`UncheckedException`은 컴파일러가 예외를 체크하지 않는다.
+
+- **장점** : 신경쓰고 싶지 않은 언체크 예외를 무시할 수 있다. 따라서, 의존 관계를 참조하지 않아도 된다.
+- **단점** : 언체크 예외는 개발자가 실수로 예외를 누락할 수 있다.
+
+### 체크 예외와 언체크 예외의 사용
+
+기본적으로 언체크 예외를 사용한다.  
+체크 예외는 비즈니스 로직상 의도적으로 던지는 예외에만 사용한다. ex) 계좌 이체 실패, 결제시 포인트 부족
+
+<img width="597" alt="image" src="https://github.com/0takkk/inflearn/assets/89503136/46b9a0ed-b912-4b92-8d91-25afc976556f">
+
+서비스단에서는 `SQLException`, `ConnectException`을 처리할 수 없고, 던져야한다.  
+또한, 이런 문제들은 사용자에게 어떤 문제가 발생했는지 자세히 설명하기 어렵다.  
+이렇게 해결이 불가능한 공통 예외는 오류 로그로 남겨 인지할 수 있도록 해야한다.
+
+<br>
+
+체크 예외의 또 다른 문제는 예외에 대한 의존 관계에 있다.  
+`Controller`나 `Service`는 본인이 처리할 수 없는 예외를 `throws`로 선언해야 한다.  
+그러면, 이는 `Controller`나 `Service`는 예외에 의존적이게 되는 것이다.
