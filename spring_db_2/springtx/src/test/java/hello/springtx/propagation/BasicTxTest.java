@@ -143,11 +143,11 @@ public class BasicTxTest {
         TransactionStatus inner = txManger.getTransaction(definition);
         log.info("inner.isNewTransaction() = {}", inner.isNewTransaction());
 
-        log.info("내부 트랜잭션 롤백");
-        txManger.commit(inner);  // 롤백
+        log.info("내부 트랜잭션 커밋");
+        txManger.commit(inner);  // 커밋
 
-        log.info("외부 트랜잭션 커밋");
-        txManger.rollback(outer);  // 커밋
+        log.info("외부 트랜잭션 롤백");
+        txManger.rollback(outer);  // 롤백
     }
 
 }
