@@ -151,7 +151,8 @@ Hibernate:
 `Lazy 로딩`은 프록시 객체를 만들어서, 필요 시점에 쿼리를 날린다.  
 `Member`는 연관 관계의 주인으로 외래키를 가지고 있기 때문에, null인지 아닌지 알 수 있어 프록시를 넣어 줄 수 있다.  
 하지만, `Team`은 외래키를 가지고 있지 않기 때문에, 프록시로 만들 객체가 null인지 아닌지 알 수 없다.  
-따라서, **지연 로딩의 의미가 없이 즉시 로딩으로 가져오며, N+1 문제가 발생**한다.
+
+따라서, **Hibernate는 이 경우 프록시 객체를 통한 지연 로딩을 지원하지 않고, 즉시 로딩하여 N+1 문제가 발생**한다.  
 
 <br>
 
@@ -195,8 +196,18 @@ Hibernate:
 <br>
 
 ### 해결 방법
-1. 양방향 관계를 제거한다.
-2. `@OneToOne` 관계를 `@OneToMany` 등 다른 관계로 변환한다.
+1. Fetch Join 사용
+   - 연관 관계 주인(`Member`)에서 fetch join으로 연관 객체(`Team`)를 한 번에 조회
+     ``` java
+     @Query("SELECT m FROM Member m JOIN FETCH m.team")
+      List<Member> findAllWithTeam();
+     ```
+2. 양방향 관계를 제거한다.
+   - `Team.member`를 제거하여 단반향 관계로 설계 -> 필요할 때만 `Member`에서 접근
+3. `@OneToOne` 관계를 `@OneToMany` 등 다른 관계로 변환한다.
+   - 비즈니스 요구에 따라 실제로 1:N 가능성이 있다면 `@OneToMany`로 전환 고려
+
+
 
 <br>
 
