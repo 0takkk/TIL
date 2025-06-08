@@ -110,3 +110,72 @@ OCP는 단위 테스트에서도 매우 유용하다.
 - 인터페이스를 통해 추상화하고, 테스트 시에는 가짜(Mock) 구현체로 대체할 수 있다.
 
 이처럼, 클래스 외부의 변경에 유연하게 대응할 수 있는 구조를 만드는데 OCP는 중요한 역할을 한다.
+
+<br>
+
+## LSP (리스코프 치환 원칙)
+`LSP(Liskov Substitution Principle)`는  
+> "자식 클래스는 언제나 부모 클래스를 대체되어도 프로그램이 정상적으로 작동해야 한다."는 의미를 가진다.  
+
+즉, 부모 클래스의 인스턴스를 사용하는 코드가 자식 클래스로 교체되어도 동작이 변하지 않아야 하며, 예외나 예기치 않은 결과가 발생해서는 안된다.  
+
+<br>
+
+### 예제 코드
+```java
+public class Bag {  
+    private int price;  
+  
+    public void setPrice(int price) {  
+        this.price = price;  
+    }  
+  
+    public int getPrice() {  
+        return price;  
+    }  
+}
+```
+
+```java
+// LSP 위반
+public class DiscountedBag extends Bag {  
+    private double discountedRate = 10;  
+  
+    public void setDiscountedRate(double discountedRate) {  
+        this.discountedRate = discountedRate;  
+    }  
+  
+    @Override  
+    public void setPrice(int price) {  
+        super.setPrice(price - (int)(discountedRate * price));  
+    }  
+}
+```
+- `Bag`를 사용하는 클라이언트 코드는 `setPrice(10000)`를 호출하면 내부 `price`가 정확히 10000으로 설정된다고 기대한다.
+- 하지만 `DiscountedBag`는 `setPrice`의 동작을 변경했다.
+- 이는 **부모 클래스의 계약을 자식 클래스가 위반**한 것이며, 클라이언트 코드는 의도치 않은 동작을 겪게 된다.
+
+<br>
+
+### LSP를 지키려면
+LSP를 지키기 위해서는 부모 클래스의 동작을 override할 때, 그 의미나 결과가 바뀌면 안된다.  
+변경이 필요한 경우에는 **별도의 기능 메서드(`applyDiscount`)를 두거나**, **전략 패턴 등으로 위임 구조를 만들고**, **상속을 지양**하는 것이 더 안전하다.  
+
+```java
+// LSP 준수
+public class DiscountedBag extends Bag {  
+    private double discountedRate = 10;  
+  
+    public void setDiscountedRate(double discountedRate) {  
+        this.discountedRate = discountedRate;  
+    }  
+  
+    public void applyDiscount(int price) {  
+        super.setPrice(price - (int)(discountedRate * price));  
+    }  
+}
+```
+
+<br>
+
+
