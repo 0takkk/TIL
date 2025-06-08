@@ -178,4 +178,59 @@ public class DiscountedBag extends Bag {
 
 <br>
 
+## ISP (인터페이스 분리 원칙)
+`ISP(Interface Segregation Principle)`는   
+> "클라이언트는 자신이 사용하지 않는 메서드에 의존하지 않아야 한다."는 의미를 가진다.  
+
+즉, `인터페이스는 클라이언트에 맞게 작고 명확하게 분리`되어야 하며, 불필요한 기능이 포함된 거대한 인터페이스를 피해야 한다.  
+
+<br>
+
+### 왜 ISP는 중요한가?
+모든 기능을 하나의 범용 인터페이스에 담으면, **특정 기능만 필요한 클라이언트도 사용하지 않는 메서드에 의존**하게 된다.  
+이는 다음과 같은 문제를 유발한다.  
+- 인터페이스 변경 시, 사용하지 않는 클라이언트까지 영향을 받는다.
+- 강제로 구현해야 할 메서드가 많아져 의미없는 코드, 유지보수 비용이 증가한다.  
+
+<br>
+
+### SRP vs ISP
+- `SRP`는 클래스의 책임을 분리하고,
+- `ISP`는 인터페이스의 관심사를 분리한다.  
+
+클래스가 단일 책임만 갖도록 분리(SRP)되면, 각 책임에 따른 작은 인터페이스를 제공할 수 있고, 결과적으로 ISP도 만족할 수 있다.
+그러나, **항상 SRP가 ISP를 보장하는 것은 아니다.**
+- 게시판 클래스가 `글쓰기`, `읽기`, `수정`, `삭제` 기능을 담당
+	- (게시판 책임에 충실 -> SRP 만족)  
+- 하지만, 이 모든 기능을 하나의 인터페이스로 묶어서 제공한다면,
+	- 삭제 기능이 필요없는 일반 사용자 클라이언트도 `delete()`에 의존 -> ISP 위반
+
+```java
+public interface BoardService {  
+    void write();  
+    void read();  
+    void update();  
+    void delete();  // 관리자만 사용하는 기능  
+}  
+```
+
+```java
+public interface Writable {  
+    void write();  
+}  
+  
+public interface Readable {  
+    void read();  
+}  
+  
+public interface Updatable {  
+    void update();  
+}  
+  
+public interface Deletable {  
+    void delete();  
+}
+```
+
+<br>
 
