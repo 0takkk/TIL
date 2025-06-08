@@ -33,3 +33,80 @@ SRP 위반은 클래스가 너무 많은 책임을 가질 때 뿐만 아니라,
 - 변경이 산발적으로 퍼져있고
 - 수정이 누락될 경우 에러 가능성이 높으며
 - 코드 추적 및 테스트 비용이 매우 커진다.
+
+<br>
+
+## OCP (개방-폐쇄 원칙)
+`OCP(Open-Closed Principle)`는 
+> "소프트웨어 구성 요소는 확장에는 열려(Open) 있어야 하고, 변경에는 닫혀(Closed) 있어야 한다."는 의미를 가진다.  
+
+기존 코드를 `수정하지 않고도` 새로운 기능을 `확장`할 수 있도록 설계해야 한다는 원칙이다.  
+즉, `기존 코드를 건드리지 않고`, 새로운 클래스를 `추가`하거나 `구현체를 교체`함으로써 기능을 확장할 수 있어야 한다.  
+반대로, 새로운 기능을 추가할 때 기존의 클라이언트 코드를 수정해야 한다면, OCP를 위반하는 것이다.  
+
+<br>
+
+### OCP를 지키는 핵심 : 추상화와 다형성
+OCP를 구현하는 핵심 기법은 다음과 같다.
+1. `변하지 않는 부분과 변하는 부분을 분리`한다.
+2. 변하는 부분은 `추상화(인터페이스 또는 추상 클래스)`로 감싸고
+3. 클라이언트는 구체적인 구현이 아니라, `추상화에 의존`하도록 만든다.
+즉, 기능 확장 시 `구현체를 추가하면 되도록` 설계하는 것이다.
+
+<br>
+
+### 예제 코드
+``` java
+// OCP 위반
+public class PaymentService {
+	public void pay(String type) {
+		if(type.equals("KAKAO")) {
+			// 카카오 결제
+		} else if(type.equals("NAVER")) {
+			// 네이버 결제
+		}
+ 	}
+}
+```
+
+``` java
+// OCP 준수
+public interface PaymentStrategy {
+	void pay();
+}
+
+public class KakaoPay implements PaymentStrategy {
+	public void pay() {
+		// 카카오 결제
+	}
+}
+
+public class NaverPay implements PaymentStrategy {
+	public void pay() {
+		// 네이버 결제
+	}
+}
+
+public class PaymentService {
+	private final PaymentStrategy strategy;
+
+	public PaymentService(PaymentStrategy strategy) {
+		this.strategy = strategy;
+	}
+
+	pulbic void executePayment() {
+		strategy.pay();
+	}
+}
+```
+- 새로운 결제 수단은 `PaymentStrategy`를 구현한 클래스를 추가하면 되고,  
+- 기존의 `PaymentService` 코드는 변경 없이 그대로 유지할 수 있다.
+
+<br>
+
+### 테스트와 OCP
+OCP는 단위 테스트에서도 매우 유용하다.  
+- 테스트 대상 클래스가 외부 서비스(DB, 네트워크)에 의존할 경우,
+- 인터페이스를 통해 추상화하고, 테스트 시에는 가짜(Mock) 구현체로 대체할 수 있다.
+
+이처럼, 클래스 외부의 변경에 유연하게 대응할 수 있는 구조를 만드는데 OCP는 중요한 역할을 한다.
