@@ -2,7 +2,7 @@ package state.solution.state;
 
 import state.solution.light.Light;
 
-public class OFF implements State {
+public class OFF implements LightState {
 
     private static OFF off = new OFF();
 

@@ -2,7 +2,7 @@ package state.solution.state;
 
 import state.solution.light.Light;
 
-public class ON implements State {
+public class ON implements LightState {
 
     private static ON on = new ON();
 
@@ -14,7 +14,8 @@ public class ON implements State {
 
     @Override
     public void on(Light light) {
-        System.out.println("반응 없음");
+        light.setState(SLEEPING.getInstance());
+        System.out.println("취침등 On!");
     }
 
     @Override

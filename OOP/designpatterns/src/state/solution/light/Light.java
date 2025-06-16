@@ -1,25 +1,25 @@
 package state.solution.light;
 
 import state.solution.state.OFF;
-import state.solution.state.State;
+import state.solution.state.LightState;
 
 public class Light {
 
-    private State state;
+    private LightState lightState;
 
     public Light() {
-        state = OFF.getInstance();
+        lightState = OFF.getInstance();
     }
 
-    public void setState(State state) {
-        this.state = state;
+    public void setState(LightState lightState) {
+        this.lightState = lightState;
     }
 
     public void on() {
-        state.on(this);
+        lightState.on(this);
     }
 
     public void off() {
-        state.off(this);
+        lightState.off(this);
     }
 }
