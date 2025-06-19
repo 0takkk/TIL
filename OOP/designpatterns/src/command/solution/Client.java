@@ -4,6 +4,7 @@ import command.solution.alarm.Alarm;
 import command.solution.button.Button;
 import command.solution.command.AlarmStartCommand;
 import command.solution.command.Command;
+import command.solution.command.LampOffCommand;
 import command.solution.command.LampOnCommand;
 import command.solution.lamp.Lamp;
 
@@ -23,6 +24,10 @@ public class Client {
         button2.press();
 
         button2.setCommand(lampOnCommand);  // 램프 켜는 커맨드로 변경
+        button2.press();
+
+        Command lampOffCommand = new LampOffCommand(lamp);
+        button2.setCommand(lampOffCommand);  // 램프 끄는 커맨드 설정
         button2.press();
     }
 }
