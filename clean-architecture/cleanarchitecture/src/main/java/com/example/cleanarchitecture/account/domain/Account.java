@@ -42,8 +42,8 @@ public class Account {
                 .isPositiveOrZero();
     }
 
-    public boolean deposit(Money money, AccountId sourceAccoutId) {
-        Activity deposit = new Activity(this.id, sourceAccoutId, this.id, LocalDateTime.now(), money);
+    public boolean deposit(Money money, AccountId sourceAccountId) {
+        Activity deposit = new Activity(this.id, sourceAccountId, this.id, LocalDateTime.now(), money);
         this.activityWindow.addActivity(deposit);
         return true;
     }
