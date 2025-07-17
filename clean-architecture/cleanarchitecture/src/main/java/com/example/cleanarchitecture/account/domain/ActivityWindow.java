@@ -1,7 +1,9 @@
 package com.example.cleanarchitecture.account.domain;
 
 import com.example.cleanarchitecture.account.domain.vo.AccountId;
+import lombok.NonNull;
 
+import java.util.Collections;
 import java.util.List;
 
 public class ActivityWindow {
@@ -24,5 +26,13 @@ public class ActivityWindow {
 
     public void addActivity(Activity activity) {
         this.activities.add(activity);
+    }
+
+    public ActivityWindow(@NonNull List<Activity> activities) {
+        this.activities = activities;
+    }
+
+    public List<Activity> getActivities() {
+        return Collections.unmodifiableList(this.activities);
     }
 }
