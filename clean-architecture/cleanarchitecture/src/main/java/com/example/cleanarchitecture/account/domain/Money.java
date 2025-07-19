@@ -1,10 +1,12 @@
 package com.example.cleanarchitecture.account.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.math.BigInteger;
 
 @Getter
+@EqualsAndHashCode
 public class Money {
 
     public static Money ZERO = Money.of(0L);
