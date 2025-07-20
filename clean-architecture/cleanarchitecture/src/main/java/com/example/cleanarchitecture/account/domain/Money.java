@@ -36,4 +36,8 @@ public class Money {
     public boolean isPositiveOrZero() {
         return this.amount.compareTo(BigInteger.ZERO) >= 0;
     }
+
+    public boolean isGreaterThen(Money money) {
+        return this.amount.compareTo(money.amount) >= 1;
+    }
 }

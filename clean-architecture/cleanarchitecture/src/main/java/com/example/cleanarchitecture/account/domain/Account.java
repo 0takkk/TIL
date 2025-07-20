@@ -4,6 +4,7 @@ import com.example.cleanarchitecture.account.domain.vo.AccountId;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Getter
 public class Account {
@@ -26,6 +27,10 @@ public class Account {
 
     public static Account withId(AccountId accountId, Money baselineBalance, ActivityWindow activityWindow) {
         return new Account(accountId, baselineBalance, activityWindow);
+    }
+
+    public Optional<AccountId> getId() {
+        return Optional.ofNullable(this.id);
     }
 
     public Money calculateBalance() {
