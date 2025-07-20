@@ -13,7 +13,7 @@ public class ActivityWindow {
     private List<Activity> activities;
 
     public Money calculateBalance(AccountId accountId) {
-        Money depositeBalance = activities.stream()
+        Money depositBalance = activities.stream()
                 .filter(activity -> activity.getTargetAccountId().equals(accountId))
                 .map(Activity::getMoney)
                 .reduce(Money.ZERO, Money::add);
@@ -23,7 +23,7 @@ public class ActivityWindow {
                 .map(Activity::getMoney)
                 .reduce(Money.ZERO, Money::add);
 
-        return Money.add(depositeBalance, withdrawalBalance.negate());
+        return Money.add(depositBalance, withdrawalBalance.negate());
     }
 
     public void addActivity(Activity activity) {
