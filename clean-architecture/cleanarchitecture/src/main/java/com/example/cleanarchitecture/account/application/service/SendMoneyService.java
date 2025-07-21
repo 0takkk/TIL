@@ -9,9 +9,11 @@ import com.example.cleanarchitecture.account.domain.Account;
 import com.example.cleanarchitecture.account.domain.vo.AccountId;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+@Service
 @Transactional
 @RequiredArgsConstructor
 public class SendMoneyService implements SendMoneyUseCase {

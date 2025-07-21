@@ -4,8 +4,10 @@ import com.example.cleanarchitecture.account.domain.Money;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 @Getter
+@Component
 @NoArgsConstructor
 @AllArgsConstructor
 public class MoneyTransferProperties {

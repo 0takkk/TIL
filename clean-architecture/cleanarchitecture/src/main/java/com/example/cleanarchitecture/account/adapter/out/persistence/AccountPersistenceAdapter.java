@@ -44,7 +44,7 @@ public class AccountPersistenceAdapter implements LoadAccountPort, UpdateAccount
         List<Activity> activities = activityWindow.getActivities();
 
         for (Activity activity : activities) {
-            if(activity.getId() == null) {
+            if(activity.getId().isEmpty()) {
                 activityRepository.save(accountMapper.mapToJpaEntity(activity));
             }
         }
