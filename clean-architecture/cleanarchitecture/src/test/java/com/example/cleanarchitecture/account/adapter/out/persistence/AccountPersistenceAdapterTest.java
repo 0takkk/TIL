@@ -4,6 +4,7 @@ import com.example.cleanarchitecture.account.domain.Account;
 import com.example.cleanarchitecture.account.domain.ActivityWindow;
 import com.example.cleanarchitecture.account.domain.Money;
 import com.example.cleanarchitecture.account.domain.vo.AccountId;
+import com.example.cleanarchitecture.account.domain.vo.ActivityId;
 import com.example.cleanarchitecture.common.AccountTestData;
 import com.example.cleanarchitecture.common.ActivityTestData;
 import org.junit.jupiter.api.Test;
@@ -48,7 +49,7 @@ class AccountPersistenceAdapterTest {
                 .withActivityWindow(
                         new ActivityWindow(
                                 ActivityTestData.defaultActivity()
-                                        .withId(null)
+                                        .withId(ActivityId.empty())
                                         .withMoney(Money.of(1L))
                                         .build()
                         )
